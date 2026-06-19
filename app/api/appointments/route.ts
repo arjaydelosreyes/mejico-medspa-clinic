@@ -48,50 +48,47 @@ export async function POST(req: NextRequest) {
     if (!profile) return NextResponse.json({ error: 'Profile not found' }, { status: 404 })
 
     const body = await req.json()
-    const { appointment_date, appointment_time, notes, services } = body
+    const { appointment_date, appointment_time, notes, treatments } = body
 
     if (!appointment_date || !appointment_time) {
       return NextResponse.json({ error: 'appointment_date and appointment_time are required' }, { status: 400 })
     }
 
-    // Server-side pricing: look up trusted prices from the services table
-    type ServiceInput = { service_id: string; quantity?: number }
+    // Server-side pricing: look up trusted prices from the treatments table
+    type TreatmentInput = { treatment_id: string; quantity?: number }
     const serviceRows: { appointment_id: string; service_id: string; quantity: number; unit_price: number }[] = []
     let total_price = 0
 
-    if (Array.isArray(services) && services.length > 0) {
-      const serviceIds = (services as ServiceInput[]).map(s => s.service_id)
-      const { data: dbServices, error: svcLookupError } = await supabase
-        .from('services')
-        .select('id, name')
-        .in('id', serviceIds)
+    if (Array.isArray(treatments) && treatments.length > 0) {
+      const treatmentIds = (treatments as TreatmentInput[]).map(t => t.treatment_id)
 
-      if (svcLookupError) return NextResponse.json({ error: svcLookupError.message }, { status: 500 })
-
-      // Reject request if any service_id is unknown
-      const foundIds = new Set((dbServices ?? []).map((s: { id: string }) => s.id))
-      const unknown = serviceIds.filter(id => !foundIds.has(id))
-      if (unknown.length > 0) {
-        return NextResponse.json({ error: `Unknown service IDs: ${unknown.join(', ')}` }, { status: 400 })
-      }
-
-      // Fetch treatment prices linked to these services (use first treatment price per service as unit price)
-      const { data: treatments } = await supabase
+      const { data: dbTreatments, error: tErr } = await supabase
         .from('treatments')
-        .select('service_id, price')
-        .in('service_id', serviceIds)
+        .select('id, service_id, price')
+        .in('id', treatmentIds)
         .eq('is_archived', false)
 
-      const priceByService: Record<string, number> = {}
-      for (const t of treatments ?? []) {
-        if (!(t.service_id in priceByService)) priceByService[t.service_id] = Number(t.price)
+      if (tErr) return NextResponse.json({ error: tErr.message }, { status: 500 })
+
+      // Reject unknown or archived treatment IDs
+      const foundIds = new Set((dbTreatments ?? []).map((t: { id: string }) => t.id))
+      const unknown = treatmentIds.filter(id => !foundIds.has(id))
+      if (unknown.length > 0) {
+        return NextResponse.json({ error: `Unknown or archived treatment IDs: ${unknown.join(', ')}` }, { status: 400 })
       }
 
-      for (const s of services as ServiceInput[]) {
-        const qty = Math.max(1, Math.floor(s.quantity ?? 1))
-        const unit = priceByService[s.service_id] ?? 0
-        total_price += qty * unit
-        serviceRows.push({ appointment_id: '', service_id: s.service_id, quantity: qty, unit_price: unit })
+      const priceMap = Object.fromEntries(
+        (dbTreatments ?? []).map((t: { id: string; service_id: string; price: number }) => [
+          t.id,
+          { price: Number(t.price), service_id: t.service_id },
+        ])
+      )
+
+      for (const t of treatments as TreatmentInput[]) {
+        const qty = Math.max(1, Math.floor(t.quantity ?? 1))
+        const { price, service_id } = priceMap[t.treatment_id]
+        total_price += qty * price
+        serviceRows.push({ appointment_id: '', service_id, quantity: qty, unit_price: price })
       }
     }
 

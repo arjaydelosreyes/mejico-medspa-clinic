@@ -101,33 +101,25 @@ export default function AppointmentPage() {
     if (!selectedDate || !selectedTime) { toast.error('Select a date and time.'); return }
 
     setLoading(true)
-    const supabase = createClient()
-    const { data: appt, error } = await supabase
-      .from('appointments')
-      .insert({
-        client_id: profile.id,
+    const res = await fetch('/api/appointments', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
         appointment_date: selectedDate,
         appointment_time: selectedTime,
-        total_price: totalPrice,
-        status: 'pending',
-      })
-      .select()
-      .single()
+        treatments: selectedTreatments.map(t => ({
+          treatment_id: t.id,
+          quantity: quantities[t.id],
+        })),
+      }),
+    })
 
-    if (error || !appt) {
-      toast.error('Failed to book appointment.')
+    if (!res.ok) {
+      const body = await res.json()
+      toast.error(body.error ?? 'Failed to book appointment.')
       setLoading(false)
       return
     }
-
-    await supabase.from('appointment_services').insert(
-      selectedTreatments.map(t => ({
-        appointment_id: appt.id,
-        service_id: t.service_id,
-        quantity: quantities[t.id],
-        unit_price: t.price,
-      }))
-    )
 
     toast.success('Appointment booked! Awaiting confirmation.')
     setQuantities({})
