@@ -27,6 +27,7 @@ const PRODUCT_IMAGES = [
 export default function OffersPage() {
   const [products, setProducts] = useState<Product[]>([])
   const [search, setSearch] = useState('')
+  const [loading, setLoading] = useState(true)
 
   useEffect(() => {
     const supabase = createClient()
@@ -35,7 +36,10 @@ export default function OffersPage() {
       .select('id, name, description, category, price')
       .eq('is_archived', false)
       .order('name')
-      .then(({ data }) => setProducts(data ?? []))
+      .then(({ data }) => {
+        setProducts(data ?? [])
+        setLoading(false)
+      })
   }, [])
 
   const filtered = products.filter(
@@ -63,9 +67,11 @@ export default function OffersPage() {
           />
         </div>
 
-        {filtered.length === 0 ? (
+        {loading ? (
+          <p className="text-center text-gray-400 py-12">Loading products...</p>
+        ) : filtered.length === 0 ? (
           <p className="text-center text-gray-400 py-12">
-            {products.length === 0 ? 'Loading products...' : 'No products found.'}
+            {search ? 'No products match your search.' : 'No products available.'}
           </p>
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
