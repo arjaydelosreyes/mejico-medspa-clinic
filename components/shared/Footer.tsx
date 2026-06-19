@@ -53,7 +53,7 @@ export function Footer() {
           <ul className="space-y-3 text-sm text-purple-200">
             <li className="flex items-center gap-2"><Mail size={16} /> mejicomedspa@gmail.com</li>
             <li className="flex items-center gap-2"><Phone size={16} /> +63 912 345 6789</li>
-            <li className="flex items-center gap-2"><MapPin size={16} /> Davao City, Philippines</li>
+            <li className="flex items-center gap-2"><MapPin size={16} /> Leuterio, San Vicente West, Calapan City, Oriental Mindoro</li>
           </ul>
         </div>
       </div>

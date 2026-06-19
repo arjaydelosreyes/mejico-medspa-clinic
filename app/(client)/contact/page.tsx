@@ -93,7 +93,7 @@ export default function ContactPage() {
           {[
             { Icon: Mail, label: 'Email', value: 'mejicomedspa@gmail.com' },
             { Icon: Phone, label: 'Phone', value: '+63 912 345 6789' },
-            { Icon: MapPin, label: 'Address', value: 'Davao City, Philippines' },
+            { Icon: MapPin, label: 'Address', value: 'Leuterio, San Vicente West, Calapan City, Oriental Mindoro' },
           ].map(({ Icon, label, value }) => (
             <div key={label} className="flex items-start gap-4">
               <div
@@ -110,7 +110,7 @@ export default function ContactPage() {
           ))}
 
           <div className="rounded-2xl overflow-hidden bg-purple-50 h-48 flex items-center justify-center mt-4">
-            <p className="text-sm text-gray-400">Davao City, Philippines</p>
+            <p className="text-sm text-gray-400">Calapan City, Oriental Mindoro</p>
           </div>
         </div>
       </div>
