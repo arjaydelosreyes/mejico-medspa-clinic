@@ -46,28 +46,27 @@ export default function LandingPage() {
         }}
       >
         <div
-          className="absolute inset-0 backdrop-blur-sm"
-          style={{ backgroundColor: 'rgba(26, 16, 64, 0.6)' }}
+          className="absolute inset-0"
+          style={{ backgroundColor: 'rgba(26, 16, 64, 0.38)' }}
         />
-        <div className="relative z-10 px-6 max-w-3xl">
+        <div className="relative z-10 px-6 max-w-3xl hero-content">
           <Image
             src="/images/mejico-MDSpa-logo-transparent.png"
             alt="Mejico MedSpa Logo"
             width={160}
             height={160}
-            className="mx-auto mb-6 animate-pulse"
+            className="mx-auto mb-6 hero-logo"
           />
-          <h1 className="text-5xl font-extrabold text-white mb-4 leading-tight">
-            Welcome to<br />
-            <span style={{ color: '#8573df' }}>Mejico MedSpa Clinic</span>
+          <h1 className="text-6xl font-bold text-white mb-4 leading-tight tracking-tight">
+            Reveal Your<br />Best Self.
           </h1>
-          <p className="text-purple-200 text-lg mb-8">
-            Your sanctuary for beauty, wellness, and self-care. Book your appointment today.
+          <p className="text-purple-200 text-lg mb-8 max-w-xl mx-auto">
+            Medical-grade aesthetics and personalized wellness care — right here in Calapan City.
           </p>
           <Link
-            href="/login"
+            href="/appointment"
             className="inline-block px-8 py-3 rounded-full text-white font-semibold text-lg transition hover:opacity-90"
-            style={{ background: 'linear-gradient(135deg, #8573df, #382d6e)' }}
+            style={{ backgroundColor: '#6a4fb3' }}
           >
             Book Appointment
           </Link>
