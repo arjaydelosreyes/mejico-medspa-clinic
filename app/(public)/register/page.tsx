@@ -6,7 +6,6 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { Mail, Lock, User, ArrowLeft, Eye, EyeOff } from 'lucide-react'
 import { toast } from 'sonner'
-import { createClient } from '@/lib/supabase/client'
 
 export default function RegisterPage() {
   const router = useRouter()
@@ -59,20 +58,8 @@ export default function RegisterPage() {
       return
     }
 
-    const supabase = createClient()
-    const { error: signInError } = await supabase.auth.signInWithPassword({
-      email: form.email,
-      password: form.password,
-    })
-
-    if (signInError) {
-      toast.error('Account created. Please log in.')
-      router.push('/login')
-      return
-    }
-
-    toast.success('Welcome to Mejico MedSpa!')
-    router.push('/home')
+    toast.success('Account created! Please check your email to verify.')
+    router.push('/verify-email')
   }
 
   return (
