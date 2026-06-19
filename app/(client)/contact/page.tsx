@@ -1,32 +1,31 @@
 'use client'
 
-import { useRef, useState } from 'react'
-import emailjs from '@emailjs/browser'
+import { useState } from 'react'
+import { createClient } from '@/lib/supabase/client'
 import { toast } from 'sonner'
 import { Mail, Phone, MapPin, Send } from 'lucide-react'
 
 export default function ContactPage() {
-  const formRef = useRef<HTMLFormElement>(null)
   const [loading, setLoading] = useState(false)
+  const [form, setForm] = useState({ name: '', email: '', subject: '', message: '' })
+
+  function update(field: keyof typeof form) {
+    return (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
+      setForm(prev => ({ ...prev, [field]: e.target.value }))
+  }
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
-    if (!formRef.current) return
     setLoading(true)
-    try {
-      await emailjs.sendForm(
-        process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID!,
-        process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID!,
-        formRef.current,
-        process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY!
-      )
-      toast.success("Message sent! We'll get back to you soon.")
-      formRef.current.reset()
-    } catch {
+    const supabase = createClient()
+    const { error } = await supabase.from('contact_messages').insert(form)
+    if (error) {
       toast.error('Failed to send message. Please try again.')
-    } finally {
-      setLoading(false)
+    } else {
+      toast.success("Message sent! We'll get back to you soon.")
+      setForm({ name: '', email: '', subject: '', message: '' })
     }
+    setLoading(false)
   }
 
   const inputClass =
@@ -43,11 +42,39 @@ export default function ContactPage() {
         {/* Form */}
         <div className="bg-white rounded-2xl shadow-lg p-8">
           <h2 className="text-2xl font-bold mb-6" style={{ color: '#382d6e' }}>Send a Message</h2>
-          <form ref={formRef} onSubmit={handleSubmit} className="space-y-4">
-            <input name="from_name" type="text" placeholder="Your name" required className={inputClass} />
-            <input name="from_email" type="email" placeholder="Email address" required className={inputClass} />
-            <input name="subject" type="text" placeholder="Subject" required className={inputClass} />
-            <textarea name="message" rows={5} placeholder="Your message" required className={`${inputClass} resize-none`} />
+          <form onSubmit={handleSubmit} className="space-y-4">
+            <input
+              type="text"
+              placeholder="Your name"
+              value={form.name}
+              onChange={update('name')}
+              required
+              className={inputClass}
+            />
+            <input
+              type="email"
+              placeholder="Email address"
+              value={form.email}
+              onChange={update('email')}
+              required
+              className={inputClass}
+            />
+            <input
+              type="text"
+              placeholder="Subject"
+              value={form.subject}
+              onChange={update('subject')}
+              required
+              className={inputClass}
+            />
+            <textarea
+              rows={5}
+              placeholder="Your message"
+              value={form.message}
+              onChange={update('message')}
+              required
+              className={`${inputClass} resize-none`}
+            />
             <button
               type="submit"
               disabled={loading}
