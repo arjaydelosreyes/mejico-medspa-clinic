@@ -35,6 +35,7 @@ export default function AppointmentPage() {
   const [quantities, setQuantities] = useState<Record<string, number>>({})
   const [appointments, setAppointments] = useState<Appointment[]>([])
   const [loading, setLoading] = useState(false)
+  const [servicesLoading, setServicesLoading] = useState(true)
   const [tab, setTab] = useState<'book' | 'view'>('book')
 
   const loadAppointments = useCallback(async () => {
@@ -51,7 +52,7 @@ export default function AppointmentPage() {
   useEffect(() => {
     const supabase = createClient()
     supabase.from('services').select('*').eq('is_archived', false).order('name')
-      .then(({ data }) => setServices(data ?? []))
+      .then(({ data }) => { setServices(data ?? []); setServicesLoading(false) })
     loadAppointments()
   }, [loadAppointments])
 
@@ -162,9 +163,11 @@ export default function AppointmentPage() {
               <h2 className="font-bold text-lg mb-4" style={{ color: '#382d6e' }}>
                 Select Services &amp; Treatments
               </h2>
-              {services.length === 0 && (
+              {servicesLoading ? (
                 <p className="text-gray-400 text-sm">Loading services...</p>
-              )}
+              ) : services.length === 0 ? (
+                <p className="text-gray-400 text-sm">No services available.</p>
+              ) : null}
               {services.map(service => (
                 <div key={service.id} className="mb-3">
                   <button
