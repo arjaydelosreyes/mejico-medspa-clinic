@@ -78,7 +78,7 @@ export default function SecurityPage() {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <div className="py-16 text-center text-white" style={{ backgroundColor: '#1a1040' }}>
+      <div className="py-16 text-center text-white bg-brand-deeper">
         <Shield className="mx-auto mb-3" size={36} />
         <h1 className="text-3xl font-bold">Personal Security</h1>
         <p className="text-purple-300 mt-1">Manage your account security settings</p>
@@ -87,7 +87,7 @@ export default function SecurityPage() {
       <div className="max-w-lg mx-auto px-6 py-10 space-y-6">
         {/* Account info */}
         <div className="bg-white rounded-2xl shadow p-6">
-          <h2 className="font-bold text-lg mb-4" style={{ color: '#382d6e' }}>Account Info</h2>
+          <h2 className="font-bold text-lg mb-4 text-brand-dark">Account Info</h2>
           <div>
             <label className={labelClass}>Email Address</label>
             <input
@@ -101,7 +101,7 @@ export default function SecurityPage() {
 
         {/* Change password */}
         <div className="bg-white rounded-2xl shadow p-6">
-          <h2 className="font-bold text-lg mb-4" style={{ color: '#382d6e' }}>Change Password</h2>
+          <h2 className="font-bold text-lg mb-4 text-brand-dark">Change Password</h2>
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>
               <label className={labelClass}>New Password</label>
@@ -166,8 +166,7 @@ export default function SecurityPage() {
             <button
               type="submit"
               disabled={loading}
-              className="w-full py-3 rounded-xl text-white font-semibold transition hover:opacity-90 disabled:opacity-60"
-              style={{ background: 'linear-gradient(135deg, #8573df, #382d6e)' }}
+              className="w-full py-3 rounded-xl text-white font-semibold transition hover:opacity-90 disabled:opacity-60 bg-gradient-to-br from-brand-light to-brand-dark"
             >
               {loading ? 'Updating...' : 'Update Password'}
             </button>

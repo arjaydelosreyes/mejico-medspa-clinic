@@ -67,7 +67,7 @@ export function AdminSidebar() {
   }
 
   const sidebarContent = (
-    <div className="flex flex-col h-full" style={{ backgroundColor: '#1a1040' }}>
+    <div className="flex flex-col h-full bg-brand-deeper">
       {/* Logo */}
       <div className="p-4 border-b border-purple-900">
         <Link href="/admin/dashboard" onClick={() => setOpen(false)}>
@@ -127,8 +127,7 @@ export function AdminSidebar() {
       {/* Mobile hamburger button */}
       <button
         onClick={() => setOpen(true)}
-        className="md:hidden fixed top-4 left-4 z-50 p-2 rounded-lg text-white"
-        style={{ backgroundColor: '#6a4fb3' }}
+        className="md:hidden fixed top-4 left-4 z-50 p-2 rounded-lg text-white bg-brand"
       >
         <Menu size={20} />
       </button>

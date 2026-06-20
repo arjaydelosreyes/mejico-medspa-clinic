@@ -102,9 +102,8 @@ export default function ProfilePage() {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <div className="py-16 text-center text-white" style={{ backgroundColor: '#1a1040' }}>
-        <div className="w-16 h-16 rounded-full mx-auto mb-3 flex items-center justify-center text-xl font-bold"
-          style={{ backgroundColor: '#6a4fb3' }}>
+      <div className="py-16 text-center text-white bg-brand-deeper">
+        <div className="w-16 h-16 rounded-full mx-auto mb-3 flex items-center justify-center text-xl font-bold bg-brand">
           {initials}
         </div>
         <h1 className="text-2xl font-bold">{personal.first_name} {personal.last_name}</h1>
@@ -118,8 +117,7 @@ export default function ProfilePage() {
             <button
               key={t.key}
               onClick={() => setTab(t.key)}
-              className={`flex-1 py-2 rounded-xl text-sm font-medium transition ${tab === t.key ? 'text-white' : 'text-gray-500 hover:text-gray-700'}`}
-              style={tab === t.key ? { backgroundColor: '#6a4fb3' } : {}}
+              className={`flex-1 py-2 rounded-xl text-sm font-medium transition ${tab === t.key ? 'bg-brand text-white' : 'text-gray-500 hover:text-gray-700'}`}
             >
               {t.label}
             </button>
@@ -129,7 +127,7 @@ export default function ProfilePage() {
         <div className="bg-white rounded-2xl shadow p-6">
           {tab === 'personal' && (
             <form onSubmit={savePersonal} className="space-y-4">
-              <h2 className="font-bold text-lg mb-2 flex items-center gap-2" style={{ color: '#382d6e' }}>
+              <h2 className="font-bold text-lg mb-2 flex items-center gap-2 text-brand-dark">
                 <User size={18} /> Personal Information
               </h2>
               <div className="grid grid-cols-2 gap-4">
@@ -173,8 +171,7 @@ export default function ProfilePage() {
                 </div>
               </div>
               <button type="submit" disabled={loading}
-                className="w-full py-3 rounded-xl text-white font-semibold transition hover:opacity-90 disabled:opacity-60"
-                style={{ background: 'linear-gradient(135deg, #8573df, #382d6e)' }}>
+                className="w-full py-3 rounded-xl text-white font-semibold transition hover:opacity-90 disabled:opacity-60 bg-gradient-to-br from-brand-light to-brand-dark">
                 {loading ? 'Saving...' : 'Save Changes'}
               </button>
             </form>
@@ -182,7 +179,7 @@ export default function ProfilePage() {
 
           {tab === 'address' && (
             <form onSubmit={saveAddress} className="space-y-4">
-              <h2 className="font-bold text-lg mb-2" style={{ color: '#382d6e' }}>Address</h2>
+              <h2 className="font-bold text-lg mb-2 text-brand-dark">Address</h2>
               <div>
                 <label className={labelClass}>House / Street</label>
                 <input className={inputClass} value={address.house_street}
@@ -211,8 +208,7 @@ export default function ProfilePage() {
                   onChange={e => setAddress(a => ({ ...a, postal_code: e.target.value }))} />
               </div>
               <button type="submit" disabled={loading}
-                className="w-full py-3 rounded-xl text-white font-semibold transition hover:opacity-90 disabled:opacity-60"
-                style={{ background: 'linear-gradient(135deg, #8573df, #382d6e)' }}>
+                className="w-full py-3 rounded-xl text-white font-semibold transition hover:opacity-90 disabled:opacity-60 bg-gradient-to-br from-brand-light to-brand-dark">
                 {loading ? 'Saving...' : 'Save Address'}
               </button>
             </form>
@@ -220,7 +216,7 @@ export default function ProfilePage() {
 
           {tab === 'medical' && (
             <form onSubmit={saveMedical} className="space-y-4">
-              <h2 className="font-bold text-lg mb-2" style={{ color: '#382d6e' }}>Medical Information</h2>
+              <h2 className="font-bold text-lg mb-2 text-brand-dark">Medical Information</h2>
               <div>
                 <label className={labelClass}>Allergies</label>
                 <textarea className={`${inputClass} resize-none`} rows={2} value={medical.allergies}
@@ -252,8 +248,7 @@ export default function ProfilePage() {
                   placeholder="e.g. acne, eczema..." />
               </div>
               <button type="submit" disabled={loading}
-                className="w-full py-3 rounded-xl text-white font-semibold transition hover:opacity-90 disabled:opacity-60"
-                style={{ background: 'linear-gradient(135deg, #8573df, #382d6e)' }}>
+                className="w-full py-3 rounded-xl text-white font-semibold transition hover:opacity-90 disabled:opacity-60 bg-gradient-to-br from-brand-light to-brand-dark">
                 {loading ? 'Saving...' : 'Save Medical Info'}
               </button>
             </form>

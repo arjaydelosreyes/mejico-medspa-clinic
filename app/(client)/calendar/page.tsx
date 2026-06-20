@@ -57,7 +57,7 @@ export default function CalendarPage() {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <div className="py-16 text-center text-white" style={{ backgroundColor: '#1a1040' }}>
+      <div className="py-16 text-center text-white bg-brand-deeper">
         <h1 className="text-3xl font-bold">My Calendar</h1>
         <p className="text-purple-300 mt-1">View your scheduled appointments</p>
       </div>
@@ -84,7 +84,7 @@ export default function CalendarPage() {
               const evt = event as ApptEvent
               return {
                 style: {
-                  backgroundColor: STATUS_COLORS[evt.status] ?? '#6a4fb3',
+                  backgroundColor: STATUS_COLORS[evt.status] ?? 'var(--brand)',
                   borderRadius: '6px',
                   border: 'none',
                   fontSize: '12px',

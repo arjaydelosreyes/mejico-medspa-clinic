@@ -26,14 +26,14 @@ export default function TreatmentListsPage() {
 
   return (
     <div>
-      <h1 className="text-2xl font-bold mb-6" style={{ color: '#382d6e' }}>Treatment Lists</h1>
+      <h1 className="text-2xl font-bold mb-6 text-brand-dark">Treatment Lists</h1>
       {Object.entries(grouped).map(([service, treatments]) => (
         <div key={service} className="bg-white rounded-2xl shadow mb-6 overflow-hidden">
-          <div className="px-5 py-3 font-semibold text-white text-sm" style={{ backgroundColor: '#6a4fb3' }}>
+          <div className="px-5 py-3 font-semibold text-white text-sm bg-brand">
             {service}
           </div>
           <table className="w-full text-sm">
-            <thead style={{ backgroundColor: '#f5f3ff' }}>
+            <thead className="bg-purple-50">
               <tr className="text-left text-xs text-gray-500">
                 <th className="px-4 py-2">Treatment</th>
                 <th className="px-4 py-2">Price</th>
@@ -43,7 +43,7 @@ export default function TreatmentListsPage() {
             <tbody>
               {treatments.map(t => (
                 <tr key={t.id} className={`border-t ${t.is_archived ? 'opacity-50' : ''}`}>
-                  <td className="px-4 py-3 font-medium" style={{ color: '#382d6e' }}>{t.name}</td>
+                  <td className="px-4 py-3 font-medium text-brand-dark">{t.name}</td>
                   <td className="px-4 py-3 text-gray-600">₱{Number(t.price).toFixed(2)}</td>
                   <td className="px-4 py-3">
                     <span className={`text-xs px-2 py-0.5 rounded-full font-medium ${t.is_archived ? 'bg-gray-100 text-gray-500' : 'bg-green-100 text-green-700'}`}>

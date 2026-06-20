@@ -1,12 +1,13 @@
 import type { Metadata } from 'next'
-import { Inter } from 'next/font/google'
+import { Jost, Bodoni_Moda } from 'next/font/google'
 import { Toaster } from 'sonner'
 import { cn } from '@/lib/utils'
 import { AuthProvider } from '@/context/AuthContext'
 import { QueryProvider } from '@/context/QueryProvider'
 import './globals.css'
 
-const inter = Inter({ subsets: ['latin'], variable: '--font-sans' })
+const jost = Jost({ subsets: ['latin'], variable: '--font-sans', weight: ['300', '400', '500', '600', '700'] })
+const bodoni = Bodoni_Moda({ subsets: ['latin'], variable: '--font-serif', weight: ['400', '500', '600', '700'] })
 
 export const metadata: Metadata = {
   title: 'Mejico MedSpa Clinic',
@@ -17,7 +18,7 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" className={cn('font-sans', inter.variable)}>
+    <html lang="en" className={cn('font-sans', jost.variable, bodoni.variable)}>
       <body className="antialiased">
         <QueryProvider>
           <AuthProvider>{children}</AuthProvider>

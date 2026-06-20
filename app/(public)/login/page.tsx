@@ -38,14 +38,12 @@ export default function LoginPage() {
 
   return (
     <div
-      className="min-h-screen flex items-center justify-center px-4"
-      style={{ background: 'linear-gradient(135deg, #1a1040, #382d6e)' }}
+      className="min-h-screen flex items-center justify-center px-4 bg-gradient-to-br from-brand-deeper to-brand-dark"
     >
       <div className="w-full max-w-md bg-white rounded-2xl shadow-2xl overflow-hidden">
         {/* Card header */}
         <div
-          className="px-8 py-6 text-white relative"
-          style={{ background: 'linear-gradient(135deg, #8573df, #382d6e)' }}
+          className="px-8 py-6 text-white relative bg-gradient-to-br from-brand-light to-brand-dark"
         >
           <Link href="/" className="absolute top-4 left-4 text-white/70 hover:text-white transition">
             <ArrowLeft size={20} />
@@ -99,15 +97,14 @@ export default function LoginPage() {
           <button
             type="submit"
             disabled={loading}
-            className="w-full py-3 rounded-xl text-white font-semibold transition hover:opacity-90 disabled:opacity-60"
-            style={{ background: 'linear-gradient(135deg, #8573df, #382d6e)' }}
+            className="w-full py-3 rounded-xl text-white font-semibold transition hover:opacity-90 disabled:opacity-60 bg-gradient-to-br from-brand-light to-brand-dark"
           >
             {loading ? 'Signing in...' : 'Sign In'}
           </button>
 
           <p className="text-center text-sm text-gray-500">
             Don&apos;t have an account?{' '}
-            <Link href="/register" className="font-medium hover:underline" style={{ color: '#6a4fb3' }}>
+            <Link href="/register" className="font-medium hover:underline text-brand">
               Register
             </Link>
           </p>

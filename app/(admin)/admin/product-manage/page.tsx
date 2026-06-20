@@ -66,14 +66,14 @@ export default function ProductManagePage() {
 
   return (
     <div>
-      <h1 className="text-2xl font-bold mb-6" style={{ color: '#382d6e' }}>Product Manage</h1>
+      <h1 className="text-2xl font-bold mb-6 text-brand-dark">Product Manage</h1>
 
       <div className="grid md:grid-cols-2 gap-6">
         {/* Product list */}
         <div className="bg-white rounded-2xl shadow overflow-hidden">
           <div className="flex items-center justify-between p-4 border-b">
-            <h2 className="font-semibold text-sm" style={{ color: '#382d6e' }}>All Products</h2>
-            <button onClick={newProduct} className="flex items-center gap-1 text-xs px-3 py-1.5 rounded-lg text-white" style={{ backgroundColor: '#6a4fb3' }}>
+            <h2 className="font-semibold text-sm text-brand-dark">All Products</h2>
+            <button onClick={newProduct} className="flex items-center gap-1 text-xs px-3 py-1.5 rounded-lg text-white bg-brand">
               <Plus size={12} /> New
             </button>
           </div>
@@ -84,7 +84,7 @@ export default function ProductManagePage() {
                 onClick={() => selectProduct(p)}
                 className={`w-full text-left px-4 py-3 border-b text-sm transition ${selected?.id === p.id ? 'bg-purple-50' : 'hover:bg-gray-50'} ${p.is_archived ? 'opacity-50' : ''}`}
               >
-                <p className="font-medium truncate" style={{ color: '#382d6e' }}>{p.name}</p>
+                <p className="font-medium truncate text-brand-dark">{p.name}</p>
                 <p className="text-xs text-gray-500">₱{Number(p.price).toFixed(2)} · Qty: {p.quantity} {p.is_archived ? '(archived)' : ''}</p>
               </button>
             ))}
@@ -94,7 +94,7 @@ export default function ProductManagePage() {
 
         {/* Form */}
         <div className="bg-white rounded-2xl shadow p-6">
-          <h2 className="font-semibold text-sm mb-4" style={{ color: '#382d6e' }}>
+          <h2 className="font-semibold text-sm mb-4 text-brand-dark">
             {isNew ? 'New Product' : `Editing: ${selected?.name}`}
           </h2>
           <form onSubmit={handleSubmit} className="space-y-3">
@@ -107,7 +107,7 @@ export default function ProductManagePage() {
             </div>
             <div><label className="text-xs text-gray-500">Description</label><textarea className={`${inputCls} resize-none`} rows={2} value={form.description} onChange={e => setForm(f => ({ ...f, description: e.target.value }))} /></div>
             <div className="flex gap-2 pt-1">
-              <button type="submit" disabled={loading} className="flex-1 py-2 rounded-xl text-white text-sm font-medium disabled:opacity-60" style={{ backgroundColor: '#6a4fb3' }}>
+              <button type="submit" disabled={loading} className="flex-1 py-2 rounded-xl text-white text-sm font-medium disabled:opacity-60 bg-brand">
                 {loading ? 'Saving…' : isNew ? 'Add Product' : 'Save Changes'}
               </button>
               {!isNew && (

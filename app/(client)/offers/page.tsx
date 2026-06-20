@@ -50,7 +50,7 @@ export default function OffersPage() {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <div className="py-16 text-center text-white" style={{ backgroundColor: '#1a1040' }}>
+      <div className="py-16 text-center text-white bg-brand-deeper">
         <h1 className="text-3xl font-bold">Products &amp; Offers</h1>
         <p className="text-purple-300 mt-1">Premium medical spa products for your wellness</p>
       </div>
@@ -86,24 +86,22 @@ export default function OffersPage() {
                   />
                   {product.category && (
                     <span
-                      className="absolute top-2 left-2 text-xs px-2 py-0.5 rounded-full text-white font-medium"
-                      style={{ backgroundColor: '#6a4fb3' }}
+                      className="absolute top-2 left-2 text-xs px-2 py-0.5 rounded-full text-white font-medium bg-brand"
                     >
                       {product.category}
                     </span>
                   )}
                 </div>
                 <div className="p-4">
-                  <h3 className="font-semibold text-sm mb-1" style={{ color: '#382d6e' }}>{product.name}</h3>
+                  <h3 className="font-semibold text-sm mb-1 text-brand-dark">{product.name}</h3>
                   <p className="text-xs text-gray-500 mb-3 line-clamp-2">{product.description}</p>
                   <div className="flex items-center justify-between">
-                    <span className="font-bold text-sm" style={{ color: '#6a4fb3' }}>
+                    <span className="font-bold text-sm text-brand">
                       ₱{Number(product.price).toFixed(2)}
                     </span>
                     <Link
                       href="/appointment"
-                      className="text-xs px-3 py-1.5 rounded-full text-white transition hover:opacity-80"
-                      style={{ backgroundColor: '#6a4fb3' }}
+                      className="text-xs px-3 py-1.5 rounded-full text-white transition hover:opacity-80 bg-brand"
                     >
                       Book Now
                     </Link>

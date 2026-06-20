@@ -47,13 +47,10 @@ export function Carousel() {
   const [expanded, setExpanded] = useState<number | null>(null)
 
   return (
-    <section className="py-16" style={{ backgroundColor: '#1a1040' }}>
+    <section className="py-16 bg-brand-deeper">
       <div className="text-center mb-10">
         <h2 className="text-3xl font-bold text-white tracking-widest">WHY CHOOSE US?</h2>
-        <div
-          className="mx-auto mt-3 h-1 w-24 rounded"
-          style={{ backgroundColor: '#8573df' }}
-        />
+        <div className="mx-auto mt-3 h-1 w-24 rounded bg-brand-light" />
       </div>
 
       <Swiper
@@ -71,7 +68,7 @@ export function Carousel() {
       >
         {slides.map((slide, i) => (
           <SwiperSlide key={i} style={{ width: '300px' }}>
-            <div className="rounded-2xl overflow-hidden shadow-2xl mx-2" style={{ backgroundColor: '#382d6e' }}>
+            <div className="rounded-2xl overflow-hidden shadow-2xl mx-2 bg-brand-dark">
               <div className="relative h-48 w-full">
                 <Image src={slide.img} alt={slide.title} fill className="object-cover" />
               </div>
@@ -82,8 +79,7 @@ export function Carousel() {
                 </p>
                 <button
                   onClick={() => setExpanded(expanded === i ? null : i)}
-                  className="mt-3 text-xs font-medium hover:opacity-80 transition px-3 py-1 rounded-full"
-                  style={{ backgroundColor: '#6a4fb3', color: 'white' }}
+                  className="mt-3 text-xs font-medium hover:opacity-80 transition px-3 py-1 rounded-full bg-brand text-white"
                 >
                   {expanded === i ? 'Read less' : 'Read more'}
                 </button>

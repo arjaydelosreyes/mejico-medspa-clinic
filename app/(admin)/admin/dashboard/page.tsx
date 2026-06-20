@@ -48,15 +48,15 @@ export default function DashboardPage() {
   }, [])
 
   const cards = [
-    { label: 'Total Clients', value: stats.clients, icon: <Users size={20} />, color: '#6a4fb3' },
-    { label: 'Total Appointments', value: stats.appointments, icon: <CalendarCheck size={20} />, color: '#382d6e' },
+    { label: 'Total Clients', value: stats.clients, icon: <Users size={20} />, color: 'var(--brand)' },
+    { label: 'Total Appointments', value: stats.appointments, icon: <CalendarCheck size={20} />, color: 'var(--brand-dark)' },
     { label: 'Pending', value: stats.pending, icon: <Clock size={20} />, color: '#f59e0b' },
     { label: 'Low Stock Products', value: stats.lowStock, icon: <AlertTriangle size={20} />, color: '#ef4444' },
   ]
 
   return (
     <div>
-      <h1 className="text-2xl font-bold mb-6" style={{ color: '#382d6e' }}>Dashboard</h1>
+      <h1 className="text-2xl font-bold mb-6 text-brand-dark">Dashboard</h1>
 
       {/* Stat cards */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
@@ -76,7 +76,7 @@ export default function DashboardPage() {
 
       {/* Recent appointments */}
       <div className="bg-white rounded-2xl shadow p-6">
-        <h2 className="font-bold text-lg mb-4" style={{ color: '#382d6e' }}>Recent Appointments</h2>
+        <h2 className="font-bold text-lg mb-4 text-brand-dark">Recent Appointments</h2>
         {recent.length === 0 ? (
           <p className="text-gray-400 text-sm text-center py-6">No appointments yet.</p>
         ) : (
@@ -94,7 +94,7 @@ export default function DashboardPage() {
               <tbody>
                 {recent.map(a => (
                   <tr key={a.id} className="border-b last:border-0">
-                    <td className="py-2 pr-4 font-medium" style={{ color: '#382d6e' }}>
+                    <td className="py-2 pr-4 font-medium text-brand-dark">
                       {a.profiles?.first_name ?? '—'} {a.profiles?.last_name ?? ''}
                     </td>
                     <td className="py-2 pr-4 text-gray-600">{a.appointment_date}</td>

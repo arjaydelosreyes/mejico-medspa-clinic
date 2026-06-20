@@ -8,6 +8,16 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        sans: ['var(--font-sans)', 'system-ui', 'sans-serif'],
+        serif: ['var(--font-serif)', 'Georgia', 'serif'],
+      },
+      boxShadow: {
+        'soft-sm': '0 1px 2px rgba(56,45,110,0.06)',
+        'soft-md': '0 4px 12px rgba(56,45,110,0.10)',
+        'soft-lg': '0 10px 24px rgba(56,45,110,0.12)',
+        'soft-xl': '0 20px 40px rgba(56,45,110,0.15)',
+      },
       colors: {
         background: "var(--background)",
         foreground: "var(--foreground)",
@@ -42,9 +52,10 @@ const config: Config = {
         input: "var(--input)",
         ring: "var(--ring)",
         brand: {
-          light: "#8573df",
+          deeper:  "#1a1040",
+          dark:    "#382d6e",
           DEFAULT: "#6a4fb3",
-          dark: "#382d6e",
+          light:   "#8573df",
         },
       },
       borderRadius: {

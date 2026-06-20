@@ -1,8 +1,11 @@
+import type React from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import { Carousel } from '@/components/public/Carousel'
 import { LandingAbout } from '@/components/public/LandingAbout'
+import { LandingPageClient } from '@/components/public/LandingPageClient'
 import { Footer } from '@/components/shared/Footer'
+import ScrollRevealInit from '@/components/ui/ScrollRevealInit'
 
 export default function LandingPage() {
   return (
@@ -10,7 +13,7 @@ export default function LandingPage() {
       {/* Fixed header */}
       <header
         className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-8 py-4 backdrop-blur-md"
-        style={{ backgroundColor: 'rgba(26, 16, 64, 0.85)' }}
+        style={{ backgroundColor: 'rgba(var(--brand-deeper-rgb), 0.85)' }}
       >
         <Image
           src="/images/mejico-MDSpa-logo-ntext.png"
@@ -28,54 +31,23 @@ export default function LandingPage() {
           </Link>
           <Link
             href="/register"
-            className="px-5 py-2 rounded-full text-sm font-medium text-white transition hover:opacity-90"
-            style={{ backgroundColor: '#6a4fb3' }}
+            className="px-5 py-2 rounded-full text-sm font-medium text-white transition hover:opacity-90 bg-brand"
           >
             Sign Up
           </Link>
         </nav>
       </header>
 
-      {/* Hero */}
-      <section
-        className="relative min-h-screen flex items-center justify-center text-center"
-        style={{
-          backgroundImage: 'url(/images/MEJICO-bg-2.1.png)',
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-        }}
-      >
-        <div
-          className="absolute inset-0"
-          style={{ backgroundColor: 'rgba(26, 16, 64, 0.38)' }}
-        />
-        <div className="relative z-10 px-6 max-w-3xl hero-content">
-          <Image
-            src="/images/mejico-MDSpa-logo-transparent.png"
-            alt="Mejico MedSpa Logo"
-            width={160}
-            height={160}
-            className="mx-auto mb-6 hero-logo"
-          />
-          <h1 className="text-6xl font-bold text-white mb-4 leading-tight tracking-tight">
-            Reveal Your<br />Best Self.
-          </h1>
-          <p className="text-purple-200 text-lg mb-8 max-w-xl mx-auto">
-            Medical-grade aesthetics and personalized wellness care — right here in Calapan City.
-          </p>
-          <Link
-            href="/appointment"
-            className="inline-block px-8 py-3 rounded-full text-white font-semibold text-lg transition hover:opacity-90"
-            style={{ backgroundColor: '#6a4fb3' }}
-          >
-            Book Appointment
-          </Link>
-        </div>
-      </section>
+      <LandingPageClient />
 
-      <Carousel />
+      <ScrollRevealInit />
+      <div data-reveal>
+        <Carousel />
+      </div>
       <LandingAbout />
-      <Footer />
+      <div data-reveal style={{ '--reveal-delay': '50ms' } as React.CSSProperties}>
+        <Footer />
+      </div>
     </main>
   )
 }

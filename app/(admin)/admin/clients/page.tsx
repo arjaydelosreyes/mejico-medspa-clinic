@@ -30,7 +30,7 @@ export default function ClientsPage() {
 
   return (
     <div>
-      <h1 className="text-2xl font-bold mb-6" style={{ color: '#382d6e' }}>Clients</h1>
+      <h1 className="text-2xl font-bold mb-6 text-brand-dark">Clients</h1>
       <input
         placeholder="Search by name or username…"
         value={search} onChange={e => setSearch(e.target.value)}
@@ -38,7 +38,7 @@ export default function ClientsPage() {
       />
       <div className="bg-white rounded-2xl shadow overflow-hidden">
         <table className="w-full text-sm">
-          <thead style={{ backgroundColor: '#f5f3ff' }}>
+          <thead className="bg-purple-50">
             <tr className="text-left text-xs text-gray-500">
               <th className="px-4 py-3">Name</th>
               <th className="px-4 py-3">Username</th>
@@ -51,7 +51,7 @@ export default function ClientsPage() {
           <tbody>
             {filtered.map(c => (
               <tr key={c.id} className="border-t">
-                <td className="px-4 py-3 font-medium" style={{ color: '#382d6e' }}>
+                <td className="px-4 py-3 font-medium text-brand-dark">
                   {[c.first_name, c.last_name].filter(Boolean).join(' ') || '—'}
                 </td>
                 <td className="px-4 py-3 text-gray-600">{c.username ?? '—'}</td>

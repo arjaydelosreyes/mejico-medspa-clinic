@@ -43,10 +43,7 @@ export function Navbar() {
   )
 
   return (
-    <header
-      className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-8 py-3"
-      style={{ backgroundColor: '#1a1040' }}
-    >
+    <header className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-8 py-3 bg-brand-deeper">
       <Link href="/home">
         <Image
           src="/images/mejico-MDSpa-logo-ntext.png"
@@ -71,10 +68,7 @@ export function Navbar() {
             <ChevronDown size={14} className={`transition-transform ${servicesOpen ? 'rotate-180' : ''}`} />
           </button>
           {servicesOpen && (
-            <div
-              className="absolute top-full left-0 mt-2 w-52 rounded-xl shadow-xl py-1 z-50"
-              style={{ backgroundColor: '#2d1b6e' }}
-            >
+            <div className="absolute top-full left-0 mt-2 w-52 rounded-xl shadow-xl py-1 z-50 bg-brand-dark">
               <Link href="/appointment" className="flex items-center gap-2 px-4 py-2.5 text-white hover:bg-purple-800 transition text-sm" onClick={() => setServicesOpen(false)}>
                 <List size={14} /> Appointments
               </Link>
@@ -95,17 +89,13 @@ export function Navbar() {
       <div ref={userRef} className="relative">
         <button
           onClick={() => setUserOpen(o => !o)}
-          className="w-9 h-9 rounded-full flex items-center justify-center text-white text-xs font-bold hover:opacity-80 transition"
-          style={{ backgroundColor: '#6a4fb3' }}
+          className="w-9 h-9 rounded-full flex items-center justify-center text-white text-xs font-bold hover:opacity-80 transition bg-brand"
         >
           {initials}
         </button>
 
         {userOpen && (
-          <div
-            className="absolute top-full right-0 mt-2 w-56 rounded-xl shadow-xl py-1 z-50"
-            style={{ backgroundColor: '#2d1b6e' }}
-          >
+          <div className="absolute top-full right-0 mt-2 w-56 rounded-xl shadow-xl py-1 z-50 bg-brand-dark">
             <div className="px-4 py-3 border-b border-purple-700">
               <p className="text-white text-sm font-semibold truncate">
                 {profile?.username ?? `${profile?.first_name ?? ''} ${profile?.last_name ?? ''}`.trim()}

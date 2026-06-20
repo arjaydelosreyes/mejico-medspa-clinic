@@ -50,7 +50,7 @@ export default function AdminCalendarPage() {
 
   return (
     <div>
-      <h1 className="text-2xl font-bold mb-6" style={{ color: '#382d6e' }}>Appointments Calendar</h1>
+      <h1 className="text-2xl font-bold mb-6 text-brand-dark">Appointments Calendar</h1>
 
       <div className="flex gap-4 mb-4 flex-wrap">
         {Object.entries(STATUS_COLORS).map(([status, color]) => (
@@ -72,7 +72,7 @@ export default function AdminCalendarPage() {
             const evt = event as ApptEvent
             return {
               style: {
-                backgroundColor: STATUS_COLORS[evt.status] ?? '#6a4fb3',
+                backgroundColor: STATUS_COLORS[evt.status] ?? 'var(--brand)',
                 borderRadius: '6px',
                 border: 'none',
                 fontSize: '12px',

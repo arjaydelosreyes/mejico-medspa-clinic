@@ -39,7 +39,7 @@ export default function AppointmentListsPage() {
 
   return (
     <div>
-      <h1 className="text-2xl font-bold mb-6" style={{ color: '#382d6e' }}>Appointment Lists</h1>
+      <h1 className="text-2xl font-bold mb-6 text-brand-dark">Appointment Lists</h1>
 
       <div className="flex gap-3 mb-4 flex-wrap">
         <div>
@@ -63,7 +63,7 @@ export default function AppointmentListsPage() {
           <div key={a.id} className="bg-white rounded-2xl shadow p-5">
             <div className="flex items-start justify-between gap-4 flex-wrap">
               <div>
-                <p className="font-semibold" style={{ color: '#382d6e' }}>
+                <p className="font-semibold text-brand-dark">
                   {[a.profiles?.first_name, a.profiles?.last_name].filter(Boolean).join(' ') || 'Unknown Client'}
                 </p>
                 <p className="text-xs text-gray-500 mt-0.5">
@@ -71,7 +71,7 @@ export default function AppointmentListsPage() {
                 </p>
               </div>
               <div className="flex items-center gap-3">
-                <span className="font-bold text-sm" style={{ color: '#6a4fb3' }}>₱{Number(a.total_price).toFixed(2)}</span>
+                <span className="font-bold text-sm text-brand">₱{Number(a.total_price).toFixed(2)}</span>
                 <span className={`text-xs px-2 py-0.5 rounded-full font-medium capitalize ${STATUS_COLORS[a.status] ?? 'bg-gray-100 text-gray-600'}`}>
                   {a.status}
                 </span>

@@ -4,7 +4,7 @@ import { Mail, Phone, MapPin } from 'lucide-react'
 
 export function Footer() {
   return (
-    <footer style={{ backgroundColor: '#382d6e' }} className="text-white py-12">
+    <footer className="bg-brand-dark text-white py-12">
       <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-4 gap-10">
         <div>
           <Image
@@ -21,8 +21,7 @@ export function Footer() {
             {['f', 'in', 'tw'].map(label => (
               <span
                 key={label}
-                className="w-9 h-9 rounded-full flex items-center justify-center cursor-pointer hover:opacity-80 transition text-xs font-bold"
-                style={{ backgroundColor: '#6a4fb3' }}
+                className="w-9 h-9 rounded-full flex items-center justify-center cursor-pointer hover:opacity-80 transition text-xs font-bold bg-brand"
               >
                 {label}
               </span>

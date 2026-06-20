@@ -48,8 +48,8 @@ export default function ServicesPage() {
   return (
     <div>
       <div className="flex items-center justify-between mb-6">
-        <h1 className="text-2xl font-bold" style={{ color: '#382d6e' }}>Services</h1>
-        <button onClick={() => setShowForm(!showForm)} className="flex items-center gap-2 px-4 py-2 rounded-xl text-white text-sm font-medium" style={{ backgroundColor: '#6a4fb3' }}>
+        <h1 className="text-2xl font-bold text-brand-dark">Services</h1>
+        <button onClick={() => setShowForm(!showForm)} className="flex items-center gap-2 px-4 py-2 rounded-xl text-white text-sm font-medium bg-brand">
           <Plus size={16} /> Add Service
         </button>
       </div>
@@ -65,7 +65,7 @@ export default function ServicesPage() {
             <input type="number" min="1" className={inputCls} value={form.duration_minutes} onChange={e => setForm(f => ({ ...f, duration_minutes: Number(e.target.value) }))} required />
           </div>
           <div className="flex items-end gap-2">
-            <button type="submit" className="px-4 py-2 rounded-xl text-white text-sm font-medium" style={{ backgroundColor: '#6a4fb3' }}>Save</button>
+            <button type="submit" className="px-4 py-2 rounded-xl text-white text-sm font-medium bg-brand">Save</button>
             <button type="button" onClick={() => setShowForm(false)} className="px-4 py-2 rounded-xl bg-gray-100 text-gray-600 text-sm">Cancel</button>
           </div>
         </form>
@@ -73,7 +73,7 @@ export default function ServicesPage() {
 
       <div className="bg-white rounded-2xl shadow overflow-hidden">
         <table className="w-full text-sm">
-          <thead style={{ backgroundColor: '#f5f3ff' }}>
+          <thead className="bg-purple-50">
             <tr className="text-left text-xs text-gray-500">
               <th className="px-4 py-3">Name</th>
               <th className="px-4 py-3">Duration</th>
@@ -84,7 +84,7 @@ export default function ServicesPage() {
           <tbody>
             {services.map(s => (
               <tr key={s.id} className={`border-t ${s.is_archived ? 'opacity-50' : ''}`}>
-                <td className="px-4 py-3 font-medium" style={{ color: '#382d6e' }}>
+                <td className="px-4 py-3 font-medium text-brand-dark">
                   {editId === s.id ? <input className={inputCls} value={editForm.name} onChange={e => setEditForm(f => ({ ...f, name: e.target.value }))} /> : s.name}
                 </td>
                 <td className="px-4 py-3 text-gray-600">

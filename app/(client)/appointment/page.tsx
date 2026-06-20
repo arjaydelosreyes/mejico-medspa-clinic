@@ -135,7 +135,7 @@ export default function AppointmentPage() {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <div className="py-16 text-center text-white" style={{ backgroundColor: '#1a1040' }}>
+      <div className="py-16 text-center text-white bg-brand-deeper">
         <CalendarPlus className="mx-auto mb-3" size={36} />
         <h1 className="text-3xl font-bold">Appointments</h1>
         <p className="text-purple-300 mt-1">Book and manage your appointments</p>
@@ -148,8 +148,7 @@ export default function AppointmentPage() {
             <button
               key={t}
               onClick={() => setTab(t)}
-              className={`flex-1 py-2 rounded-xl text-sm font-medium transition ${tab === t ? 'text-white' : 'text-gray-500 hover:text-gray-700'}`}
-              style={tab === t ? { backgroundColor: '#6a4fb3' } : {}}
+              className={`flex-1 py-2 rounded-xl text-sm font-medium transition ${tab === t ? 'bg-brand text-white' : 'text-gray-500 hover:text-gray-700'}`}
             >
               {t === 'book' ? 'Book Appointment' : 'My Appointments'}
             </button>
@@ -160,7 +159,7 @@ export default function AppointmentPage() {
           <form onSubmit={handleBook} className="grid md:grid-cols-3 gap-6">
             {/* Services + treatments */}
             <div className="md:col-span-2 bg-white rounded-2xl shadow p-6">
-              <h2 className="font-bold text-lg mb-4" style={{ color: '#382d6e' }}>
+              <h2 className="font-bold text-lg mb-4 text-brand-dark">
                 Select Services &amp; Treatments
               </h2>
               {servicesLoading ? (
@@ -173,8 +172,7 @@ export default function AppointmentPage() {
                   <button
                     type="button"
                     onClick={() => toggleService(service.id)}
-                    className="w-full flex justify-between items-center px-4 py-3 rounded-xl text-left text-sm font-medium text-white transition"
-                    style={{ backgroundColor: expandedService === service.id ? '#382d6e' : '#6a4fb3' }}
+                    className={`w-full flex justify-between items-center px-4 py-3 rounded-xl text-left text-sm font-medium text-white transition ${expandedService === service.id ? 'bg-brand-dark' : 'bg-brand'}`}
                   >
                     {service.name}
                     <span className="text-lg leading-none">{expandedService === service.id ? '−' : '+'}</span>
@@ -187,7 +185,7 @@ export default function AppointmentPage() {
                       {treatments.filter(t => t.service_id === service.id).map(t => (
                         <div key={t.id} className="flex items-center justify-between bg-purple-50 rounded-xl px-4 py-2">
                           <div>
-                            <p className="text-sm font-medium" style={{ color: '#382d6e' }}>{t.name}</p>
+                            <p className="text-sm font-medium text-brand-dark">{t.name}</p>
                             <p className="text-xs text-gray-500">₱{Number(t.price).toFixed(2)}</p>
                           </div>
                           <div className="flex items-center gap-2">
@@ -197,8 +195,7 @@ export default function AppointmentPage() {
                             </button>
                             <span className="w-6 text-center text-sm font-semibold">{quantities[t.id] ?? 0}</span>
                             <button type="button" onClick={() => adjustQty(t.id, 1)}
-                              className="w-6 h-6 rounded-full flex items-center justify-center text-white"
-                              style={{ backgroundColor: '#6a4fb3' }}>
+                              className="w-6 h-6 rounded-full flex items-center justify-center text-white bg-brand">
                               <Plus size={10} />
                             </button>
                           </div>
@@ -212,7 +209,7 @@ export default function AppointmentPage() {
 
             {/* Booking summary */}
             <div className="bg-white rounded-2xl shadow p-6 space-y-4 h-fit">
-              <h2 className="font-bold text-lg" style={{ color: '#382d6e' }}>Summary</h2>
+              <h2 className="font-bold text-lg text-brand-dark">Summary</h2>
               <div>
                 <label className="text-xs font-medium text-gray-500 block mb-1">Date</label>
                 <input
@@ -232,8 +229,7 @@ export default function AppointmentPage() {
                       key={t}
                       type="button"
                       onClick={() => setSelectedTime(t)}
-                      className={`py-1.5 rounded-lg text-xs font-medium transition flex items-center justify-center gap-1 ${selectedTime === t ? 'text-white' : 'bg-gray-100 text-gray-600 hover:bg-gray-200'}`}
-                      style={selectedTime === t ? { backgroundColor: '#6a4fb3' } : {}}
+                      className={`py-1.5 rounded-lg text-xs font-medium transition flex items-center justify-center gap-1 ${selectedTime === t ? 'bg-brand text-white' : 'bg-gray-100 text-gray-600 hover:bg-gray-200'}`}
                     >
                       <Clock size={10} /> {t}
                     </button>
@@ -248,7 +244,7 @@ export default function AppointmentPage() {
                       <span>₱{(Number(t.price) * (quantities[t.id] ?? 0)).toFixed(2)}</span>
                     </div>
                   ))}
-                  <div className="flex justify-between font-bold text-sm pt-2 border-t" style={{ color: '#382d6e' }}>
+                  <div className="flex justify-between font-bold text-sm pt-2 border-t text-brand-dark">
                     <span>Total</span>
                     <span>₱{totalPrice.toFixed(2)}</span>
                   </div>
@@ -257,8 +253,7 @@ export default function AppointmentPage() {
               <button
                 type="submit"
                 disabled={loading}
-                className="w-full py-3 rounded-xl text-white font-semibold transition hover:opacity-90 disabled:opacity-60 text-sm"
-                style={{ background: 'linear-gradient(135deg, #8573df, #382d6e)' }}
+                className="w-full py-3 rounded-xl text-white font-semibold transition hover:opacity-90 disabled:opacity-60 text-sm bg-gradient-to-br from-brand-light to-brand-dark"
               >
                 {loading ? 'Booking...' : 'Confirm Booking'}
               </button>
@@ -268,7 +263,7 @@ export default function AppointmentPage() {
 
         {tab === 'view' && (
           <div className="bg-white rounded-2xl shadow p-6">
-            <h2 className="font-bold text-lg mb-4" style={{ color: '#382d6e' }}>My Appointments</h2>
+            <h2 className="font-bold text-lg mb-4 text-brand-dark">My Appointments</h2>
             {appointments.length === 0 ? (
               <p className="text-gray-400 text-sm text-center py-8">No appointments yet.</p>
             ) : (
@@ -276,7 +271,7 @@ export default function AppointmentPage() {
                 {appointments.map(appt => (
                   <div key={appt.id} className="flex items-center justify-between p-4 bg-gray-50 rounded-xl">
                     <div>
-                      <p className="font-medium text-sm" style={{ color: '#382d6e' }}>{appt.appointment_date}</p>
+                      <p className="font-medium text-sm text-brand-dark">{appt.appointment_date}</p>
                       <p className="text-xs text-gray-500">
                         {appt.appointment_time} · ₱{Number(appt.total_price).toFixed(2)}
                       </p>

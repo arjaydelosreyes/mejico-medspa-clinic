@@ -13,23 +13,30 @@
   to   { opacity: 1; transform: translateY(0); }
 }
 
-.hero-logo {
-  animation: heroFadeIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
-}
-
-.hero-content {
-  animation: heroFadeIn 0.9s 0.15s cubic-bezier(0.16, 1, 0.3, 1) both;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .hero-logo,
-  .hero-content {
-    animation: none;
-  }
+/* Hero elements start hidden — GSAP drives entrance via LandingPageClient */
+[data-hero-text],
+[data-hero-image],
+[data-scroll-line] {
+  opacity: 0;
 }
 
 @layer base {
   :root {
+    /* Brand palette */
+    --brand-deeper: #1a1040;
+    --brand-deeper-rgb: 26, 16, 64;
+    --brand-dark:   #382d6e;
+    --brand:        #6a4fb3;
+    --brand-light:  #8573df;
+    --brand-bg:     #f5f3ff;
+    --brand-border: #ddd6fe;
+
+    /* Shadow scale (purple-tinted) */
+    --shadow-sm: 0 1px 2px rgba(56,45,110,0.06);
+    --shadow-md: 0 4px 12px rgba(56,45,110,0.10);
+    --shadow-lg: 0 10px 24px rgba(56,45,110,0.12);
+    --shadow-xl: 0 20px 40px rgba(56,45,110,0.15);
+
     --background: oklch(1 0 0);
     --foreground: oklch(0.145 0 0);
     --card: oklch(1 0 0);
@@ -94,5 +101,31 @@
   }
   html {
     @apply font-sans;
+  }
+  h1, h2 {
+    @apply font-serif;
+  }
+}
+
+/* ─── Scroll Reveal ─────────────────────────────────────────── */
+[data-reveal] {
+  opacity: 0;
+  transform: translateY(28px);
+  transition:
+    opacity 0.65s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.65s cubic-bezier(0.16, 1, 0.3, 1);
+  transition-delay: var(--reveal-delay, 0ms);
+}
+
+[data-reveal].is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-reveal] {
+    opacity: 1;
+    transform: none;
+    transition: none;
   }
 }

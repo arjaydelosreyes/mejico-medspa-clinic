@@ -22,7 +22,7 @@ export default function HomePage() {
       >
         <div
           className="absolute inset-0 backdrop-blur-sm"
-          style={{ backgroundColor: 'rgba(26, 16, 64, 0.65)' }}
+          style={{ backgroundColor: 'rgba(var(--brand-deeper-rgb), 0.65)' }}
         />
         <div className="relative z-10 px-6 max-w-3xl">
           <Image
@@ -34,15 +34,14 @@ export default function HomePage() {
           />
           <h1 className="text-5xl font-extrabold text-white mb-4 leading-tight">
             Welcome back,{' '}
-            <span style={{ color: '#8573df' }}>{profile?.first_name ?? 'there'}</span>
+            <span className="text-brand-light">{profile?.first_name ?? 'there'}</span>
           </h1>
           <p className="text-purple-200 text-lg mb-8">
             Your wellness journey continues. Book your next appointment today.
           </p>
           <Link
             href="/appointment"
-            className="inline-block px-8 py-3 rounded-full text-white font-semibold text-lg transition hover:opacity-90"
-            style={{ background: 'linear-gradient(135deg, #8573df, #382d6e)' }}
+            className="inline-block px-8 py-3 rounded-full text-white font-semibold text-lg transition hover:opacity-90 bg-gradient-to-br from-brand-light to-brand-dark"
           >
             Book Appointment
           </Link>

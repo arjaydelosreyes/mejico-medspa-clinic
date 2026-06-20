@@ -32,8 +32,8 @@ export default function ContactPage() {
     'w-full px-4 py-3 border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-purple-400'
 
   return (
-    <div className="min-h-screen" style={{ background: 'linear-gradient(135deg, #f5f7fa, #e4e8ff)' }}>
-      <div className="py-20 text-center text-white" style={{ backgroundColor: '#1a1040' }}>
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-purple-100">
+      <div className="py-20 text-center text-white bg-brand-deeper">
         <h1 className="text-4xl font-bold">Contact Us</h1>
         <p className="text-purple-300 mt-2">{"We'd love to hear from you"}</p>
       </div>
@@ -41,7 +41,7 @@ export default function ContactPage() {
       <div className="max-w-6xl mx-auto px-6 py-16 grid md:grid-cols-2 gap-12">
         {/* Form */}
         <div className="bg-white rounded-2xl shadow-lg p-8">
-          <h2 className="text-2xl font-bold mb-6" style={{ color: '#382d6e' }}>Send a Message</h2>
+          <h2 className="text-2xl font-bold mb-6 text-brand-dark">Send a Message</h2>
           <form onSubmit={handleSubmit} className="space-y-4">
             <input
               type="text"
@@ -78,8 +78,7 @@ export default function ContactPage() {
             <button
               type="submit"
               disabled={loading}
-              className="w-full py-3 rounded-xl text-white font-semibold flex items-center justify-center gap-2 transition hover:opacity-90 disabled:opacity-60"
-              style={{ background: 'linear-gradient(135deg, #8573df, #382d6e)' }}
+              className="w-full py-3 rounded-xl text-white font-semibold flex items-center justify-center gap-2 transition hover:opacity-90 disabled:opacity-60 bg-gradient-to-br from-brand-light to-brand-dark"
             >
               <Send size={16} />
               {loading ? 'Sending...' : 'Send Message'}
@@ -89,7 +88,7 @@ export default function ContactPage() {
 
         {/* Contact info */}
         <div className="space-y-6">
-          <h2 className="text-2xl font-bold" style={{ color: '#382d6e' }}>Get In Touch</h2>
+          <h2 className="text-2xl font-bold text-brand-dark">Get In Touch</h2>
           {[
             { Icon: Mail, label: 'Email', value: 'mejicomedspa@gmail.com' },
             { Icon: Phone, label: 'Phone', value: '+63 912 345 6789' },
@@ -97,13 +96,12 @@ export default function ContactPage() {
           ].map(({ Icon, label, value }) => (
             <div key={label} className="flex items-start gap-4">
               <div
-                className="w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0"
-                style={{ backgroundColor: '#6a4fb3' }}
+                className="w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0 bg-brand"
               >
                 <Icon size={18} className="text-white" />
               </div>
               <div>
-                <p className="font-semibold text-sm" style={{ color: '#382d6e' }}>{label}</p>
+                <p className="font-semibold text-sm text-brand-dark">{label}</p>
                 <p className="text-gray-600 text-sm">{value}</p>
               </div>
             </div>
