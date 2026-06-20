@@ -64,7 +64,7 @@ export function LandingPageClient() {
           setIntroReady(true)
         }} />
       )}
-      <HeroSection introReady={introReady} />
+      <HeroSection />
     </>
   )
 }

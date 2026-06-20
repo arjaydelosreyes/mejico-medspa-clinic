@@ -5,7 +5,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { useLenis } from 'lenis/react'
 
-export function HeroSection({ introReady: _introReady = false }: { introReady?: boolean }) {
+export function HeroSection() {
   const bgRef = useRef<HTMLDivElement>(null)
 
   useLenis(({ scroll }) => {
