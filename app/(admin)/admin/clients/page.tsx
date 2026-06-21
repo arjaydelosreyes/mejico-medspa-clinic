@@ -2,21 +2,40 @@
 
 import { useEffect, useState } from 'react'
 import { createClient } from '@/lib/supabase/client'
+import { RoleSelector } from '@/components/admin/RoleSelector'
 
 type Client = {
-  id: string; first_name: string | null; last_name: string | null; username: string | null
-  phone: string | null; gender: string | null; date_of_birth: string | null; created_at: string
+  id: string
+  user_id: string
+  first_name: string | null
+  last_name: string | null
+  username: string | null
+  phone: string | null
+  gender: string | null
+  date_of_birth: string | null
+  created_at: string
+  role: 'client' | 'admin'
 }
 
 export default function ClientsPage() {
-  const [clients, setClients] = useState<Client[]>([])
-  const [search, setSearch] = useState('')
+  const [clients, setClients]         = useState<Client[]>([])
+  const [search, setSearch]           = useState('')
+  const [currentUserId, setCurrentUserId] = useState<string | null>(null)
 
   useEffect(() => {
     const supabase = createClient()
-    supabase.from('profiles').select('id, first_name, last_name, username, phone, gender, date_of_birth, created_at')
-      .eq('role', 'client').order('created_at', { ascending: false })
-      .then(({ data }) => setClients(data ?? []))
+
+    // Fetch the logged-in user's ID for self-demotion guard
+    supabase.auth.getUser().then(({ data }) => {
+      setCurrentUserId(data.user?.id ?? null)
+    })
+
+    // Fetch all profiles (clients + admins) so roles can be managed
+    supabase
+      .from('profiles')
+      .select('id, user_id, first_name, last_name, username, phone, gender, date_of_birth, created_at, role')
+      .order('created_at', { ascending: false })
+      .then(({ data }) => setClients((data ?? []) as Client[]))
   }, [])
 
   const filtered = clients.filter(c => {
@@ -46,6 +65,7 @@ export default function ClientsPage() {
               <th className="px-4 py-3">Gender</th>
               <th className="px-4 py-3">Date of Birth</th>
               <th className="px-4 py-3">Joined</th>
+              <th className="px-4 py-3">Role</th>
             </tr>
           </thead>
           <tbody>
@@ -59,10 +79,17 @@ export default function ClientsPage() {
                 <td className="px-4 py-3 text-gray-600 capitalize">{c.gender ?? '—'}</td>
                 <td className="px-4 py-3 text-gray-600">{c.date_of_birth ?? '—'}</td>
                 <td className="px-4 py-3 text-gray-500 text-xs">{new Date(c.created_at).toLocaleDateString()}</td>
+                <td className="px-4 py-3">
+                  <RoleSelector
+                    userId={c.user_id}
+                    currentRole={c.role}
+                    isSelf={c.user_id === currentUserId}
+                  />
+                </td>
               </tr>
             ))}
             {filtered.length === 0 && (
-              <tr><td colSpan={6} className="px-4 py-8 text-center text-gray-400">No clients found.</td></tr>
+              <tr><td colSpan={7} className="px-4 py-8 text-center text-gray-400">No clients found.</td></tr>
             )}
           </tbody>
         </table>
