@@ -51,6 +51,7 @@ export default function ResetPasswordPage() {
 
     // Invalidate the recovery session
     await supabase.auth.signOut()
+    setLoading(false)
     router.push('/login?message=password_reset_success')
   }
 
