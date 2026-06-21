@@ -9,7 +9,7 @@ import {
   LayoutDashboard, Package, Boxes, ClipboardList,
   Scissors, List, Users, UserCog,
   CalendarCheck, CalendarDays, Calendar,
-  LogOut, Menu, X, ShoppingBag,
+  LogOut, Menu, X, ShoppingBag, ShieldCheck,
 } from 'lucide-react'
 
 type NavItem = { label: string; href: string; icon: React.ReactNode }
@@ -51,6 +51,12 @@ const NAV: NavSection[] = [
       { label: 'Appointments', href: '/admin/appointments', icon: <CalendarCheck size={16} /> },
       { label: 'Appt Lists', href: '/admin/appointment-lists', icon: <CalendarDays size={16} /> },
       { label: 'Calendar', href: '/admin/calendar', icon: <Calendar size={16} /> },
+    ],
+  },
+  {
+    title: 'Security',
+    items: [
+      { label: 'Audit Logs', href: '/admin/audit-logs', icon: <ShieldCheck size={16} /> },
     ],
   },
 ]
