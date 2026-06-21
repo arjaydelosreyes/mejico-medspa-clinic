@@ -11,6 +11,7 @@ export async function updateUserRole(
   const supabase = await createClient()
   const { data: { user } } = await supabase.auth.getUser()
   if (!user) throw new Error('Unauthorized')
+  if (newRole !== 'client' && newRole !== 'admin') throw new Error('Invalid role')
 
   // Validate the requesting user is an admin
   const { data: myProfile } = await supabase

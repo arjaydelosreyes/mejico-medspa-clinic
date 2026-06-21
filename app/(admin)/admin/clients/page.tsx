@@ -21,6 +21,7 @@ export default function ClientsPage() {
   const [clients, setClients]         = useState<Client[]>([])
   const [search, setSearch]           = useState('')
   const [currentUserId, setCurrentUserId] = useState<string | null>(null)
+  const [isLoaded, setIsLoaded]       = useState(false)
 
   useEffect(() => {
     const supabase = createClient()
@@ -28,6 +29,7 @@ export default function ClientsPage() {
     // Fetch the logged-in user's ID for self-demotion guard
     supabase.auth.getUser().then(({ data }) => {
       setCurrentUserId(data.user?.id ?? null)
+      setIsLoaded(true)
     })
 
     // Fetch all profiles (clients + admins) so roles can be managed
@@ -80,11 +82,15 @@ export default function ClientsPage() {
                 <td className="px-4 py-3 text-gray-600">{c.date_of_birth ?? '—'}</td>
                 <td className="px-4 py-3 text-gray-500 text-xs">{new Date(c.created_at).toLocaleDateString()}</td>
                 <td className="px-4 py-3">
-                  <RoleSelector
-                    userId={c.user_id}
-                    currentRole={c.role}
-                    isSelf={c.user_id === currentUserId}
-                  />
+                  {isLoaded ? (
+                    <RoleSelector
+                      userId={c.user_id}
+                      currentRole={c.role}
+                      isSelf={c.user_id === currentUserId}
+                    />
+                  ) : (
+                    <span className="text-xs text-gray-400">—</span>
+                  )}
                 </td>
               </tr>
             ))}
