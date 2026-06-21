@@ -1,8 +1,26 @@
+'use client'
+
+import { useState } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import { Mail, CheckCircle } from 'lucide-react'
+import { createClient } from '@/lib/supabase/client'
 
 export default function VerifyEmailPage() {
+  const [resending, setResending] = useState(false)
+  const [resent, setResent] = useState(false)
+
+  async function handleResend() {
+    setResending(true)
+    const supabase = createClient()
+    const { data: { session } } = await supabase.auth.getSession()
+    if (session?.user?.email) {
+      await supabase.auth.resend({ type: 'signup', email: session.user.email })
+    }
+    setResending(false)
+    setResent(true)
+  }
+
   return (
     <div
       className="min-h-screen flex items-center justify-center px-4 bg-gradient-to-br from-brand-deeper to-brand-dark"
@@ -38,12 +56,21 @@ export default function VerifyEmailPage() {
             <CheckCircle size={16} />
             <span>Verification email sent successfully</span>
           </div>
-          <Link
-            href="/login"
-            className="inline-block w-full py-3 rounded-xl text-white font-semibold transition hover:opacity-90 bg-gradient-to-br from-brand-light to-brand-dark"
+          <button
+            onClick={handleResend}
+            disabled={resending || resent}
+            className="mt-4 text-sm text-purple-600 hover:underline disabled:opacity-50 disabled:cursor-not-allowed"
           >
-            Back to Login
-          </Link>
+            {resent ? 'Verification email sent!' : resending ? 'Sending…' : 'Resend verification email'}
+          </button>
+          <div className="mt-4">
+            <Link
+              href="/login"
+              className="inline-block w-full py-3 rounded-xl text-white font-semibold transition hover:opacity-90 bg-gradient-to-br from-brand-light to-brand-dark"
+            >
+              Back to Login
+            </Link>
+          </div>
         </div>
       </div>
     </div>

@@ -27,6 +27,15 @@ export default function LoginPage() {
       return
     }
 
+    // Block unverified users before they reach protected routes
+    if (!data.user.email_confirmed_at) {
+      await supabase.auth.signOut()
+      toast.error('Please verify your email before signing in.')
+      router.push('/verify-email')
+      setLoading(false)
+      return
+    }
+
     const { data: profile } = await supabase
       .from('profiles')
       .select('role')
@@ -92,6 +101,12 @@ export default function LoginPage() {
             >
               {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
             </button>
+          </div>
+
+          <div className="flex justify-end">
+            <Link href="/forgot-password" className="text-xs text-purple-600 hover:underline">
+              Forgot password?
+            </Link>
           </div>
 
           <button

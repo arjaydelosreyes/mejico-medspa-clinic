@@ -1,7 +1,7 @@
 import { NextResponse, type NextRequest } from 'next/server'
 import { updateSession } from '@/lib/supabase/middleware'
 
-const PUBLIC_ROUTES = ['/', '/login', '/register', '/verify-email']
+const PUBLIC_ROUTES = ['/', '/login', '/register', '/verify-email', '/forgot-password', '/reset-password']
 const ADMIN_PREFIX = '/admin'
 
 export async function middleware(request: NextRequest) {
@@ -23,6 +23,13 @@ export async function middleware(request: NextRequest) {
     const loginUrl = request.nextUrl.clone()
     loginUrl.pathname = '/login'
     return NextResponse.redirect(loginUrl)
+  }
+
+  // Email must be verified before accessing any protected route
+  if (!user.email_confirmed_at) {
+    const verifyUrl = request.nextUrl.clone()
+    verifyUrl.pathname = '/verify-email'
+    return NextResponse.redirect(verifyUrl)
   }
 
   // Admin routes require role = 'admin'
