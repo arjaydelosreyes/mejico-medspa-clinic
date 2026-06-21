@@ -3,10 +3,13 @@
 import { useState } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
+import { useRouter } from 'next/navigation'
 import { Mail, CheckCircle } from 'lucide-react'
 import { createClient } from '@/lib/supabase/client'
+import { toast } from 'sonner'
 
 export default function VerifyEmailPage() {
+  const router = useRouter()
   const [resending, setResending] = useState(false)
   const [resent, setResent] = useState(false)
 
@@ -14,9 +17,14 @@ export default function VerifyEmailPage() {
     setResending(true)
     const supabase = createClient()
     const { data: { session } } = await supabase.auth.getSession()
-    if (session?.user?.email) {
-      await supabase.auth.resend({ type: 'signup', email: session.user.email })
+    if (!session?.user?.email) {
+      setResending(false)
+      // No session — direct them to login
+      toast.error('Session expired. Please sign in again.')
+      router.push('/login')
+      return
     }
+    await supabase.auth.resend({ type: 'signup', email: session.user.email })
     setResending(false)
     setResent(true)
   }

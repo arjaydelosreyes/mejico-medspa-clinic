@@ -33,7 +33,7 @@ export default async function AuditLogsPage() {
   const { data: profiles } = userIds.length > 0
     ? await supabase
         .from('profiles')
-        .select('user_id, first_name, last_name, username')
+        .select('user_id, first_name, last_name')
         .in('user_id', userIds)
     : { data: [] }
 
@@ -60,7 +60,7 @@ export default async function AuditLogsPage() {
               <th className="px-4 py-3">IP</th>
             </tr>
           </thead>
-          <tbody className="divide-y divide-gray-50">
+          <tbody className="divide-y divide-gray-100">
             {logs?.map(log => {
               const profile = log.user_id ? profileMap.get(log.user_id) : null
               const colorClass = ACTION_COLORS[log.action] ?? 'bg-gray-100 text-gray-700'
@@ -68,7 +68,9 @@ export default async function AuditLogsPage() {
               return (
                 <tr key={log.id} className="hover:bg-gray-50 transition-colors">
                   <td className="px-4 py-3 whitespace-nowrap text-gray-500">
-                    {format(new Date(log.created_at), 'MMM d, yyyy HH:mm:ss')}
+                    {log.created_at
+                      ? format(new Date(log.created_at), 'MMM d, yyyy HH:mm:ss')
+                      : '—'}
                   </td>
                   <td className="px-4 py-3">
                     {profile
