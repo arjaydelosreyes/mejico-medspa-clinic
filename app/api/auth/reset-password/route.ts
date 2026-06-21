@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { createClient } from '@supabase/supabase-js'
 import { checkRateLimit, getRateLimitKey } from '@/lib/rate-limit'
+import { logAuditEvent } from '@/lib/audit'
 
 export async function POST(req: NextRequest) {
   try {
@@ -25,6 +26,12 @@ export async function POST(req: NextRequest) {
 
     await supabase.auth.resetPasswordForEmail(email, {
       redirectTo: `${siteUrl}/auth/callback?next=/reset-password`,
+    })
+
+    await logAuditEvent({
+      userId:   null,
+      action:   'password_reset_request',
+      metadata: {},
     })
 
     // Always return 200 — don't reveal whether the email exists

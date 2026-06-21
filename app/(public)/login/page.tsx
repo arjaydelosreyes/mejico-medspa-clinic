@@ -8,6 +8,7 @@ import Image from 'next/image'
 import { Mail, Lock, Eye, EyeOff, ArrowLeft } from 'lucide-react'
 import { toast } from 'sonner'
 import { createClient } from '@/lib/supabase/client'
+import { logLoginEvent } from '@/app/actions/audit'
 
 function SearchParamsToast() {
   const searchParams = useSearchParams()
@@ -35,6 +36,7 @@ export default function LoginPage() {
 
     const { data, error } = await supabase.auth.signInWithPassword({ email, password })
     if (error) {
+      await logLoginEvent('login_failure', email)
       toast.error(error.message)
       setLoading(false)
       return
@@ -48,6 +50,8 @@ export default function LoginPage() {
       setLoading(false)
       return
     }
+
+    await logLoginEvent('login_success', email)
 
     const { data: profile } = await supabase
       .from('profiles')
