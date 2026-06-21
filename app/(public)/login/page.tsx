@@ -1,12 +1,25 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect, Suspense } from 'react'
 import { useRouter } from 'next/navigation'
+import { useSearchParams } from 'next/navigation'
 import Link from 'next/link'
 import Image from 'next/image'
 import { Mail, Lock, Eye, EyeOff, ArrowLeft } from 'lucide-react'
 import { toast } from 'sonner'
 import { createClient } from '@/lib/supabase/client'
+
+function SearchParamsToast() {
+  const searchParams = useSearchParams()
+
+  useEffect(() => {
+    if (searchParams.get('message') === 'password_reset_success') {
+      toast.success('Password reset successfully. Please sign in.')
+    }
+  }, [searchParams])
+
+  return null
+}
 
 export default function LoginPage() {
   const router = useRouter()
@@ -49,6 +62,9 @@ export default function LoginPage() {
     <div
       className="min-h-screen flex items-center justify-center px-4 bg-gradient-to-br from-brand-deeper to-brand-dark"
     >
+      <Suspense fallback={null}>
+        <SearchParamsToast />
+      </Suspense>
       <div className="w-full max-w-md bg-white rounded-2xl shadow-2xl overflow-hidden">
         {/* Card header */}
         <div

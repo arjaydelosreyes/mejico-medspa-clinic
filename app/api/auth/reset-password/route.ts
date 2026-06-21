@@ -14,7 +14,7 @@ export async function POST(req: NextRequest) {
     const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'http://localhost:3000'
 
     await supabase.auth.resetPasswordForEmail(email, {
-      redirectTo: `${siteUrl}/auth/callback?next=/login`,
+      redirectTo: `${siteUrl}/auth/callback?next=/reset-password`,
     })
 
     // Always return 200 — don't reveal whether the email exists
